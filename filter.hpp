@@ -1,4 +1,8 @@
 
+template <typename F> class Filter;
+
+template <typename F> Filter(F) -> Filter<F>;
+
 //ラムダ式や関数を保持するだけのクラス(Filterの実体)
 template <class F> class Filter {
 	F filter_func;
