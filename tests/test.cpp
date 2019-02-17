@@ -10,38 +10,39 @@ int main(){
 	// preparing filter
 
 	// (int, int) -> vector<int>
-	auto range = Filter ([](std::pair<int, int> min_max) -> vector<int>{
+	Filter range {[](std::pair<int, int> min_max) -> vector<int>{
 		vector<int> res;
 		for(int i=min_max.first; i < min_max.second; ++i)
 			res.push_back(i);
 		return res;
-	});
+	}};
 
 	// vector<int> -> vector<unsigned>
-	auto abs_num = Filter ([](vector<int> list) -> vector<unsigned>{
+	Filter abs_num {[](vector<int> list) -> vector<unsigned>{
 		vector<unsigned> res;
 		res.reserve(list.size());
 		for(int i : list)
 			res.push_back(i<0 ? -i : i);
 		return res;
-	});
+	}};
 
-	auto limit_num = ParameterizedFilter ([](vector<unsigned> list, unsigned limit) -> vector<unsigned>{
+	// vector<unsigned> -> vector<unsigned> ( with parameter: int limit )
+	ParameterizedFilter limit_num {[](vector<unsigned> list, unsigned limit) -> vector<unsigned>{
 			vector<unsigned> res;
 			for(auto i : list)
 				if(i <= limit)
 					res.push_back(i);
 			return res;
-	});
+	}};
 
 	// vector<unsigned> -> int
-	auto max_num = Filter([](vector<unsigned> list) -> int{
+	Filter max_num = {[](vector<unsigned> list) -> int{
 		int max = -1;
 		for(auto u : list)
 			if(max < static_cast<int>(u))
 				max = u;
 		return max;
-	});
+	}};
 
 	// int -> int
 	Filter square {[](int n){
