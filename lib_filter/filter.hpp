@@ -1,3 +1,4 @@
+#pragma once
 
 template <typename F> class Filter;
 
@@ -22,7 +23,7 @@ template <class T, class F> auto inline operator|(const T& target, const Filter<
 // (両方がFilterなら合成)
 template <class T, class U> auto inline operator|(const Filter<T>& filter1, const Filter<U>& filter2) {
 	return Filter{
-		[=](auto param){
+		[=](const auto& param){
 			return filter2(filter1(param));
 		}
 	};
