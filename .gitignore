@@ -34,3 +34,7 @@
 # Build
 build/
 */build/
+
+# Vim swap files
+*.swp
+
