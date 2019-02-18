@@ -1,6 +1,14 @@
 version: 2
+
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - gcc-7
+
 jobs:
-  build:
+  gcc-7:
     docker:
       - image: enumack/buildcontainers:gcc-7
 
@@ -13,20 +21,5 @@ jobs:
 
       - run:
           name: CTest
-          command: cd tests/build && cmake .. && make && make test
-
-clang_5_0:
-    docker:
-      - image: enumack/buildcontainers:clang-5.0
-
-    steps:
-      - checkout
-
-      - run:
-          name: Make Directory
-          command: mkdir -p tests/build
-
-      - run:
-          name: CTest
-          command: cd tests/build && cmake .. && make && make test
+          command: cd tests/build && cmake -DCMAKE_CXX_COMPILER=$CXX .. && make && make test
 
