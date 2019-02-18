@@ -1,0 +1,10 @@
+test:
+  pre:
+    - mkdir -p tests/build; cd tests/build
+  override:
+    - cmake .. && make && make test
+checkout:
+  post:
+    - git submodule init
+    - git submodule update
+
